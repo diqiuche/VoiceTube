@@ -1,0 +1,31 @@
+div#app
+  div.header
+    div.sortGroup
+      div.sortTitle 排序
+      div.sortBtnGroup 
+        div(v-for="(value,key) in sortTitleList" v-on:click="sortBy(value)" :class="{act:value.title==sortAct}") {{value.title}}
+    div.filterGroup
+      div.filterTitle 長度
+      div.filterBtnGroup
+        div(v-for="(value,key) in filterTitleList" v-on:click="filterBy(value)" :class="{act:value.title==filterAct}") {{value.title}}
+  div.cardlist
+    div.noResult(v-if='noResult == "true"') 沒有篩選結果
+    div.card(v-if='noResult == "false"' v-for="list in lists")
+     div.videoCover(v-on:mouseover="hover(list)" v-bind:style="{ 'background-image': 'url(' + list.thumbnail + ')' }" :class="{act:list.id==imgAct}")
+      div.second {{Math.floor(list.duration / 60)}} : 
+       span(v-if='list.duration % 60 < 10') 0{{list.duration % 60}}
+       span(v-if='list.duration % 60 >= 10') {{list.duration % 60}}
+     div.title {{list.title}}
+     div.headset
+      i(class="fas fa-headphones")
+      span {{list.views}}
+     div.markGroup
+      div.mark.language(v-if='list.captions.indexOf("cht") >= 0') {{languageMap.cht}}
+      div.mark.language(v-if='list.captions.indexOf("ja") >= 0') {{languageMap.ja}}
+      div.mark.language(v-if='list.captions.indexOf("vi") >= 0') {{languageMap.vi}}
+      div.mark.language(v-if='list.captions.indexOf("en") >= 0') {{languageMap.en}}
+      div.mark.level(v-if='list.level == 1') {{levelMap[1]}}
+      div.mark.level(v-if='list.level == 2') {{levelMap[2]}}
+      div.mark.level(v-if='list.level == 3') {{levelMap[3]}}
+      div.mark.level(v-if='list.level == 4') {{levelMap[4]}}
+    

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>A Pen by  zander</title>
+  
+  
+  <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  
+<div id="app">
+  <div class="header">
+    <div class="sortGroup">
+      <div class="sortTitle">排序</div>
+      <div class="sortBtnGroup"> 
+        <div v-for="(value,key) in sortTitleList" v-on:click="sortBy(value)" :class="{act:value.title==sortAct}">{{value.title}}</div>
+      </div>
+    </div>
+    <div class="filterGroup">
+      <div class="filterTitle">長度</div>
+      <div class="filterBtnGroup">
+        <div v-for="(value,key) in filterTitleList" v-on:click="filterBy(value)" :class="{act:value.title==filterAct}">{{value.title}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="cardlist">
+    <div class="noResult" v-if="noResult == &quot;true&quot;">沒有篩選結果</div>
+    <div class="card" v-if="noResult == &quot;false&quot;" v-for="list in lists">
+      <div class="videoCover" v-on:mouseover="hover(list)" v-bind:style="{ 'background-image': 'url(' + list.thumbnail + ')' }" :class="{act:list.id==imgAct}">
+        <div class="second">{{Math.floor(list.duration / 60)}} : <span v-if="list.duration % 60 &lt; 10">0{{list.duration % 60}}</span><span v-if="list.duration % 60 &gt;= 10">{{list.duration % 60}}</span></div>
+      </div>
+      <div class="title">{{list.title}}</div>
+      <div class="headset"><i class="fas fa-headphones"></i><span>{{list.views}}</span></div>
+      <div class="markGroup">
+        <div class="mark language" v-if="list.captions.indexOf(&quot;cht&quot;) &gt;= 0">{{languageMap.cht}}</div>
+        <div class="mark language" v-if="list.captions.indexOf(&quot;ja&quot;) &gt;= 0">{{languageMap.ja}}</div>
+        <div class="mark language" v-if="list.captions.indexOf(&quot;vi&quot;) &gt;= 0">{{languageMap.vi}}</div>
+        <div class="mark language" v-if="list.captions.indexOf(&quot;en&quot;) &gt;= 0">{{languageMap.en}}</div>
+        <div class="mark level" v-if="list.level == 1">{{levelMap[1]}}</div>
+        <div class="mark level" v-if="list.level == 2">{{levelMap[2]}}</div>
+        <div class="mark level" v-if="list.level == 3">{{levelMap[3]}}</div>
+        <div class="mark level" v-if="list.level == 4">{{levelMap[4]}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17-beta.0/vue.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>
